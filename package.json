@@ -7,7 +7,7 @@
     "node": "22.15.0"
   },
   "scripts": {
-    "start:dev": "node --watch ./src/index.js"
+    "start": "node ./src/index.js"
   },
   "keywords": [],
   "author": "",
