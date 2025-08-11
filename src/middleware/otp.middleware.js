@@ -29,7 +29,7 @@ export const getOtp = () => {
             const encryptPasswordOtp = await generateEncryption({plaintext:passwordOtp})
             await servicesDB.findByIdAndUpdate({model:UserModel , id: user._id 
              ,data:{passwordOTP:encryptPasswordOtp , passwordOTPExpires:Date.now()+300000}})
-            await emailEvent.emit("Confirm Email" ,{to:email , otp:passwordOtp})
+            await emailEvent.emit("Rest Password" ,{to:email , otp:passwordOtp})
             return successResponse({res,message:"OTP Send To Email"});
         default:
            return next(new Error("Invalid verification type"));
