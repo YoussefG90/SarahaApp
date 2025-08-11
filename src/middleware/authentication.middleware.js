@@ -1,7 +1,7 @@
 import { asyncHandler } from "../utils/response.js";
 import * as servicesDB from "../DB/services.db.js"
 import { UserModel } from "../DB/models/user.js";
-import {decodedToken, verfiyToken} from "../utils/Security/token.js"
+import {decodedToken, signatureTypeEnum, verfiyToken} from "../utils/Security/token.js"
 import { tokenTypeEnum } from "../utils/Security/token.js";
 
 
@@ -25,9 +25,13 @@ export const authorization = ({accessRoles = []} = {}) =>{
 
 export const optionalAuthentication = async (req, res, next) => {
   const authHeader = req.headers.authorization; 
-  if (!authHeader?.startsWith("Bearer ")) {
-    return next();
-  }
+  if (
+  !authHeader?.startsWith(signatureTypeEnum.bearer) &&
+  !authHeader?.startsWith(signatureTypeEnum.system)
+) {
+  return next();
+}
+
   const token = authHeader.split(" ")[1];
   if (!token) {
     return next();
