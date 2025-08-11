@@ -1,6 +1,6 @@
 import path from "path"
 import  * as dotenv from "dotenv"
-dotenv.config({path:path.join('./src/config/.env') , quiet:true});
+dotenv.config();
 import express from "express"
 import connectDB from "./DB/connection.db.js"
 import authControler from "./modules/auth/auth.controller.js"
