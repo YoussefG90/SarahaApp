@@ -74,7 +74,7 @@ export const login = asyncHandler (
         }    
         const checkPassword = await hash.compareHash({plaintext:password , hashValue: user.password})
         const checkOtp = await ServicesDB.findOne({model:UserModel , 
-            filter:{ _id: user._id, confirmEmail: {$exists:true}}})
+            filter:{ _id: user._id, confirmEmail:true}})
         if (!checkOtp) {
             return next(new Error ("Email Not Confirmed", {cause:400}))
         }
