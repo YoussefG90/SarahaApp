@@ -37,7 +37,7 @@ export const getAllMessages = asyncHandler(
             return next(new Error ("User Not Found" , {cause:404}))
         }
         const allData = await ServicesDB.findAll({model:MessageModel,
-             filter : {userId: req.user._id},select:"content"}) 
+             filter : {userId: req.user._id}}) 
         return successResponse({res,status:200,data:{allData}})
 })
 
