@@ -34,9 +34,9 @@ export const getOtp = () => {
         default:
            return next(new Error("Invalid verification type"));
         case typeEnum.newEmail:
-            const { newEmail } = req.body;
-            if (!newEmail) {
-              return next(new Error("New email is required", { cause: 400 }));
+            const { email } = req.body;
+            if (!email) {
+              return next(new Error("Email is required", { cause: 400 }));
             }  
             const emailOtp = generateRandomOTP()
             const encryptEmailOtp = await generateEncryption({plaintext:emailOtp})
