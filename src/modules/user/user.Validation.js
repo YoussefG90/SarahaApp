@@ -116,7 +116,7 @@ export const updateEmail = {
     body:joi.object().keys({
        email:genralFields.email.required(),
        newEmail:genralFields.email.not(joi.ref("email")).required()
-    }).required
+    }).required()
 }
 
 export const deleteUser = {
