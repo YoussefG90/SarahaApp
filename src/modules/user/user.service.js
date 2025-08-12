@@ -6,6 +6,7 @@ import * as hash from "../../utils/Security/hash.js"
 import RevokeToken from "../../DB/models/revokeToken.js";
 import { createRevokeToken, logoutEnum } from "../../utils/Security/token.js";
 import { deleteFolderByPrefix, destroyFile, uploadFile } from "../../utils/multer/Cloudinary.js";
+import mongoose from "mongoose";
 
 
 
@@ -160,9 +161,10 @@ export const freeze = asyncHandler (
 
 export const restore = asyncHandler (
     async (req,res,next) => {
+        const adminid = req.user._id
         const {userId} = req.params
         const user = await ServicesDB.findOneAndUpdate({model:UserModel , 
-            filter:{_id:userId, deletedAt :{$exists:true} ,deletedBy : {$ne:userId} } , 
+            filter:{_id:userId, deletedAt :{$exists:true} ,deletedBy: { $ne: new mongoose.Types.ObjectId(adminid) } } , 
             data:{$unset:{deletedBy:1 , deletedAt:1} ,
              restoredBy: req.user._id , restoredAt:Date.now()}
         })
