@@ -19,7 +19,7 @@ export const updatePassword = {
     body:logout.body.append({
         oldpassword:genralFields.password.required(),
         newpassword:genralFields.password.not(joi.ref("oldpassword")).required(),
-        confirmpassword:genralFields.confirmPassword.required()
+        confirmpassword:joi.string().valid(joi.ref("newpassword")).required()
     }).required()
 
 }
