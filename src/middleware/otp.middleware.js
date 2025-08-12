@@ -41,7 +41,7 @@ export const getOtp = () => {
             const emailOtp = generateRandomOTP()
             const encryptEmailOtp = await generateEncryption({plaintext:emailOtp})
             await servicesDB.findByIdAndUpdate({model:UserModel , id: user._id 
-             ,data:{emailOTP:encryptEmailOtp , emailOTPExpires:Date.now()+300000 , tempEmail:newEmail}})
+             ,data:{emailOTP:encryptEmailOtp , emailOTPExpires:Date.now()+300000}})
             await emailEvent.emit("Confirm Email" ,{to:email , otp:emailOtp})
             return successResponse({res,message:"OTP Send To Email"}); 
       } 
